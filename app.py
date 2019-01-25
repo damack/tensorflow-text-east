@@ -1,3 +1,4 @@
+import io
 import os
 import re
 import cv2
@@ -146,7 +147,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def index_post():
-    import io
     bio = io.BytesIO()
     request.files['image'].save(bio)
     img = cv2.imdecode(np.frombuffer(bio.getvalue(), dtype='uint8'), 1)
@@ -167,7 +167,6 @@ def index_post():
     boxes = np.zeros((text_box_restored.shape[0], 9), dtype=np.float32)
     boxes[:, :8] = text_box_restored.reshape((-1, 8))
     boxes[:, 8] = score_map[xy_text[:, 0], xy_text[:, 1]]
-
     boxes = lanms.merge_quadrangle_n9(boxes.astype('float32'), 0.2)
 
     for i, box in enumerate(boxes):

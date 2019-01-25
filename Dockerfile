@@ -1,19 +1,16 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
-ENV TZ=Europe/Berlin
-
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update
 RUN apt-get upgrade -y
 
-RUN apt-get install -y python3 python3-pip python3-dev python3-opencv build-essential tesseract-ocr  
+RUN apt-get install -y python3 python3-pip python3-dev build-essential tesseract-ocr mpich
 RUN pip3 install --upgrade pip
-RUN pip3 install opencv-python pytesseract tensorflow flask Pillow
+RUN pip3 install opencv-python pytesseract flask Pillow lanms
+RUN pip3 --no-cache-dir install https://github.com/mind/wheels/releases/download/tf1.7-cpu/tensorflow-1.7.0-cp35-cp35m-linux_x86_64.whl
+RUN apt-get install -y libsm6
 
 WORKDIR /usr/src/app
 COPY . .
-
-RUN rm lanms/adaptor.so
 
 EXPOSE 5000
 
