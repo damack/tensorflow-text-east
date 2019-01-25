@@ -12,6 +12,6 @@ RUN apt-get install -y libsm6
 WORKDIR /usr/src/app
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8000
 
 CMD [ "python3", "./app.py" ]

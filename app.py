@@ -145,6 +145,11 @@ def sort_poly(p):
 app = Flask(__name__)
 
 
+@app.route('/', methods=['GET'])
+def index_get():
+    return jsonify({})
+
+
 @app.route('/', methods=['POST'])
 def index_post():
     bio = io.BytesIO()
